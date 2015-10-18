@@ -52,5 +52,5 @@ else:
 	words_per_day = int(math.ceil(float(words_remaining) / days_remaining)) #Must cast at least one value as a float to get 'true' division in Python 2 (versus floor division)
 	print "Including your deadline day, you will need to write at least %s words per day to meet your goal (%s) of %s words by the end of %s." % (words_per_day, include_today_phrase, words_total, end_date)
 print "---------------------------------------------------------------"
-print "You have %s words and %s remaining.  Good luck!" % (words_remaining, days_remaining)
+print "You have %s words and %s days remaining.  Good luck!" % (words_remaining, days_remaining)
 print "---------------------------------------------------------------"
