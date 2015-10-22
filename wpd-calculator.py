@@ -8,18 +8,41 @@ import math
 def __format_datetime(string):
 	return datetime.strptime(string, "%m/%d/%Y %H:%M:%S")
 
+def __check_numeric(string):
+	try:
+		float(string)
+		return True
+	except ValueError:
+		return False
+
 print "Welcome to the Words Per Day Calculator Script."
 
 print "---------------------------------------------------------------"
 
 print "Please answer a few questions about your project, and we will calculate your remaining words per day needed to meet your goal."
 
-start_date = raw_input("What is the starting date for your writing project? It can be today, but it can also be a past or future date. (Please answer in the format m/d/yyyy, where the year is four digits.) ")
-start_date_full = start_date + " 00:00:01"
-end_date = raw_input("What is the ending date/deadline? (Please answer in the format m/d/yyyy, where the year is four digits.) ")
+start_date = raw_input("What is the starting date for your writing project?  It can be any past, present, or future date.  (Please answer in the format m/d/yyyy, where the year is four digits.) ")
+while(len(start_date) == 0):
+	print "Sorry, no input was detected.  Please try again."
+	start_date = raw_input("What is the starting date for your writing project?  It can be any past, present, or future date.  (Please answer in the format m/d/yyyy, where the year is four digits.) ")
+start_date_full = start_date + " 00:00:00"
+
+end_date = raw_input("What is the ending date/deadline for your writing project?  This date will be included in the days remaining. (Please answer in the format m/d/yyyy, where the year is four digits.) ")
+while(len(end_date) == 0):
+	print "Sorry, no input was detected.  Please try again."
+	end_date = raw_input("What is the ending date/deadline for your writing project?  This date will be included in the days remaining. (Please answer in the format m/d/yyyy, where the year is four digits.) ")
 end_date_full = end_date + " 23:59:59"
-words_total = raw_input("What is the total number of words you need to complete within that timeframe? ")
-words_so_far = raw_input("Have you written any words so far that should be included in the total? (If not, just enter 0). ")
+
+words_total = raw_input("What is the total number of words you need to complete within that timeframe? Just enter the number, no commas (i.e. 50000 for fifty thousand). ")
+while(__check_numeric(words_total) == False):
+	print "Sorry, that did not appear to be a number.  Please try again."
+	words_total = raw_input("What is the total number of words you need to complete within that timeframe? Just enter the number, no commas (i.e. 50000 for fifty thousand). ")
+
+words_so_far = raw_input("Have you written any words so far that should be included in the total? Just enter the number, no commas.  (If you are not including any words already written, just enter 0). ")
+while(__check_numeric(words_so_far) == False):
+	print "Sorry, that did not appear to be a number.  Please try again."
+	words_total = raw_input("What is the total number of words you need to complete within that timeframe? Just enter the number, no commas (i.e. 50000 for fifty thousand). ")
+
 now = datetime.now()
 today_date = "%s/%s/%s" % (now.month, now.day, now.year)
 today_full = today_date + " %s:%s:%s" % (now.hour, now.minute, now.second)
@@ -36,6 +59,7 @@ project_length_days = delta_project_timeframe.days + 1
 words_remaining = int(words_total) - int(words_so_far)
 
 if days_until_start > 0:
+	days_remaining = project_length_days
 	print "Your timeline does not begin for another %s days.  We will use the full number of days between your start date and end date, %s, to calculate your needed words per day." % (days_until_start, project_length_days)
 	words_per_day = int(math.ceil(float(words_remaining) / project_length_days)) #Must cast at least one value as a float to get 'true' division in Python 2 (versus floor division)
 	print "Including your start and end dates, you will need to write at least %s words per day to meet your goal of %s words by the end of %s." % (words_per_day, words_total, end_date)
