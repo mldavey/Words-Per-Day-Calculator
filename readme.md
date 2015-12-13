@@ -23,8 +23,8 @@ Installation Instructions
 * Confirm Python is installed on your system.  Opening your terminal and entering `python -V` should give you a version number if it is installed
 * Download the script
 * Run the script from the terminal:
-```python
-python wpd-calculator.py```
+
+`python wpd-calculator.py`
 
 This script also requires the python-dateutil module (http://labix.org/python-dateutil for Python < 3.0, newer versions here https://github.com/dateutil/dateutil) to be installed.  The python-dateutil module was written by Gustavo Niemeyer.
 
